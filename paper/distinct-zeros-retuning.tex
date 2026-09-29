@@ -1,0 +1,301 @@
+\documentclass[reqno,11pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=red,urlcolor=blue]{hyperref}
+\usepackage{geometry}
+\geometry{a4paper,top=2.5cm,bottom=2.5cm,left=2.8cm,right=2.8cm}
+
+\numberwithin{equation}{section}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator{\tr}{tr}
+
+\title[A parameter refinement for distinct zeta zeros]{A parameter refinement of the lower bound\\ for distinct zeros of the Riemann zeta function}
+
+\author{Deep Bhattacharjee}
+\address{Electro-Gravitational Space Propulsion Laboratory (EGSPL),
+Bhubaneswar, Odisha, India}
+\email{itsdeep@live.com}
+
+\date{29 September 2026. Draft, not submitted.}
+
+\begin{document}
+
+\begin{abstract}
+Let $N(T)$ count the nontrivial zeros of $\zeta(s)$ with $0<\gamma\le T$, with
+multiplicity, and let $N_d(T)$ count the distinct ones. Knausg{\aa}rd recently
+proved $\liminf_{T\to\infty}N_d(T)/N(T)\ge 0.8369928814\ldots$. We show that,
+with exactly the same analytic and computer-assisted inputs, the free
+parameters of that argument admit a better choice, which gives
+\[
+\liminf_{T\to\infty}\frac{N_d(T)}{N(T)}\ \ge\ q' := \frac{62359683640669}{74504434380000}
+= 0.8369929140406\ldots .
+\]
+The gain is about $3.26\cdot10^{-8}$. We also show that the block length
+$m=1310$ used here is the largest admissible one in that argument, identify
+the constraint that stops it (the residue attached to pairs of zeros off the
+critical line), and record that removing this constraint alone could not
+take the method beyond $0.8369964\ldots$. The result inherits every
+dependency of the argument it refines, including a computer-assisted local
+inequality that has not yet been refereed.
+\end{abstract}
+
+\maketitle
+
+\noindent\textbf{MSC 2020:} 11M26 (primary); 11M06.
+
+\section{Introduction}
+
+It is conjectured that all nontrivial zeros $\rho=\beta+i\gamma$ of the Riemann
+zeta function are simple. Let $N(T)$ count the zeros with $0<\gamma\le T$
+counted with multiplicity and $N_d(T)$ the distinct ones. Montgomery's
+pair-correlation method \cite{Mon73} gives lower bounds for
+$N_d(T)/N(T)$. An unconditional form of Montgomery's theorem \cite{BGST24},
+used as in \cite{Cla26,AF26,Lam26}, gives
+$\liminf N_d/N\ge 0.83625\ldots$; Wang \cite{Wan26} improved this by about
+$3\cdot10^{-8}$, and Knausg{\aa}rd \cite{Kna26} proved
+\begin{equation}\label{eq:q}
+\liminf_{T\to\infty}\frac{N_d(T)}{N(T)}\ \ge\ q:=\frac{16260119298029}{19426831050000}=0.83699288145\ldots
+\end{equation}
+by combining a mixed-multiplicity matrix inequality with a certified
+seven-point local inequality from \cite{TRM26}.
+
+The argument of \cite{Kna26} has three free parameters: a clipping
+parameter $\tau\ge0$, a threshold $c$, and a block length $m$. The purpose of
+this note is to observe that these can be chosen better.
+
+\begin{theorem}\label{thm:main}
+Under the inputs of \cite{Kna26} (listed in Section~\ref{sec:inputs}),
+\[
+\liminf_{T\to\infty}\frac{N_d(T)}{N(T)}\ \ge\ q':=\frac{62359683640669}{74504434380000}=0.83699291404068\ldots .
+\]
+\end{theorem}
+
+Theorem~\ref{thm:main} improves \eqref{eq:q} by $q'-q=3.2588\ldots\cdot10^{-8}$.
+The improvement is small, and we do not claim a new method. The second
+result explains why the gain stops here.
+
+\begin{proposition}\label{prop:limit}
+In the argument of \cite{Kna26}, with the same window, weights and
+certificate, no admissible choice of $(\tau,c,m)$ has $m>1310$.
+If the admissibility condition coming from off-line pairs were dropped, the
+same bound would tend to
+\[
+q_\infty=\frac{1+H-6/2736}{2-\delta}=0.8369964390\ldots\qquad(m\to\infty),
+\]
+where $H$ and $\delta$ are the constants in \eqref{eq:imports}.
+\end{proposition}
+
+\subsection*{What this does not show}
+Theorem~\ref{thm:main} concerns distinct zeros, not zeros on the critical
+line. More generally, a lower bound for a proportion of zeros, even one
+equal to $1$, does not prove the Riemann Hypothesis: if every zero except a
+set of density zero had some property, the exceptional set could still be
+infinite. The statement ``$100\%$ of the zeros lie on the critical line'' in
+the sense of density is compatible with infinitely many zeros off the line.
+Only the statement that \emph{every} nontrivial zero lies on the line is the
+Riemann Hypothesis.
+
+\section{The argument of Knausg{\aa}rd}\label{sec:inputs}
+
+We recall only what is needed; notation follows \cite{Kna26}. The zeros are
+rescaled to mean spacing one. A fixed even probability density $f=\eta^2$ on
+$[-\tfrac12,\tfrac12]$, with $K=\hat f$, gives unit vectors attached to the
+zeros whose Gram matrix has entries $K(y-y')$. The operator $A$ built from
+them has $\tr A=N$ and energy $E=\tr A^2$.
+
+\subsection*{Imported inputs}
+The following are used exactly as in \cite{Kna26} and are not re-proved
+here:
+\begin{enumerate}
+\item (Energy asymptotic, \cite[Lemma 5]{BGST24}; \cite[Prop.~5]{Kna26}.)
+$E_\eps=(C(f_\eps)+o(1))N$ with $C(f_\eps)\to C(f)\le 2-H$.
+\item (Certified local inequality, \cite{TRM26}; \cite[Prop.~6]{Kna26}.) There
+are rational weights $w_{ij}\ge0$ with $\sum_i w_{i,i+r}=2$ for $1\le r\le6$
+such that for all real $y_0\le\dots\le y_6$,
+\[
+\tfrac{1}{2736}(y_6-y_0)+\sum_{0\le i<j\le 6}w_{ij}K(y_j-y_i)^2\ \ge\ \delta.
+\]
+\end{enumerate}
+Here
+\begin{equation}\label{eq:imports}
+H=\frac{3362285207}{5000000000},\qquad \delta=\frac{891}{200000}.
+\end{equation}
+
+\subsection*{The parametrised inequality}
+Let $n_1,n_2$ count the distinct on-line zeros of multiplicity $1,2$, let $h$
+count distinct on-line zeros of multiplicity $\ge3$, and let $k$ count
+off-line pairs, so that $N_d=n_1+n_2+h+2k$. For parameters $(\tau,c,m)$ put
+\[
+\Delta_m=(m-6)\delta,\qquad a=\frac{\Delta_m}{m},\qquad
+\beta=\frac{6(m-6)}{2736\,m},\qquad r_h=6c-7-c^2,\qquad r_k=4c-2-c^2 .
+\]
+The proof of \cite[Theorem 1]{Kna26} uses the parameters only through the
+following conditions:
+\begin{align}
+&\tau\ge0,\qquad c\ge\max(1+\tau,\,2+\tau/2), \label{eq:A1}\\
+&\Delta_m\le\tau^2, \label{eq:A2}\\
+&r_h-a\ge0,\qquad r_k-2a\ge0. \label{eq:A3}
+\end{align}
+Condition \eqref{eq:A1} is the hypothesis of the mixed-multiplicity Gram
+inequality \cite[Theorem 2]{Kna26} and of the combination with the threshold
+lemma \cite[Lemma 4]{Kna26}; it yields
+\begin{equation}\label{eq:one}
+E_\eps\ \ge\ 3N-2N_d+\tr\Psi_\tau(U)+r_hh+r_kk .
+\end{equation}
+Condition \eqref{eq:A2} is the hypothesis of the block dichotomy, which, with
+shifted-block pinching and the window count, gives
+\begin{equation}\label{eq:two}
+\tr\Psi_\tau(U)\ \ge\ a\,l-\beta\,(y_l-y_1)-O_{m,\tau}(d_\eps)N-O_m(1),
+\qquad l=N_d-h-2k .
+\end{equation}
+Combining \eqref{eq:one}, \eqref{eq:two}, the energy asymptotic and
+$y_l-y_1\le N+o(N)$ gives
+\begin{equation}\label{eq:final}
+(2-a)N_d\ \ge\ \bigl(3-C(f_\eps)-\beta-O_{m,\tau}(d_\eps)\bigr)N+(r_h-a)h+(r_k-2a)k-o(N),
+\end{equation}
+and \eqref{eq:A3} lets one drop the last two terms. Letting $T\to\infty$ and
+then $\eps\to0$ gives
+\begin{equation}\label{eq:qm}
+\liminf_{T\to\infty}\frac{N_d(T)}{N(T)}\ \ge\ q(m):=\frac{1+H-\beta}{2-a}.
+\end{equation}
+Knausg{\aa}rd takes $(\tau,c,m)=(12/5,17/5,1298)$, and $q(1298)=q$.
+
+\section{Proof of Theorem~\ref{thm:main}}
+
+Take
+\[
+\tau=\frac{2411}{1000},\qquad c=\frac{3411}{1000},\qquad m=1310 .
+\]
+Then $1+\tau=c$ and $2+\tau/2=3.2055<c$, so \eqref{eq:A1} holds.
+Next,
+\[
+\Delta_m=\frac{145233}{25000}=5.80932<\tau^2=5.812921,
+\]
+so \eqref{eq:A2} holds. With
+\[
+a=\frac{145233}{32750000},\qquad \beta=\frac{163}{74670},
+\]
+one finds
+\[
+r_h-a=\frac{239290417}{131000000}>0,\qquad r_k-2a=\frac{5497}{26200000}>0,
+\]
+so \eqref{eq:A3} holds. Every step between \eqref{eq:A1}--\eqref{eq:A3} and
+\eqref{eq:qm} in \cite{Kna26} is stated for general admissible parameters
+(the Lean statements of \cite[\S4]{Kna26} for Theorem 2, Lemma 4 and the
+counting assembly are parametric), and the smoothing error
+$O_{m,\tau}(d_\eps)$ vanishes as $\eps\to0$ for any fixed $(m,\tau)$.
+Therefore \eqref{eq:qm} holds with $m=1310$, and in exact arithmetic
+\[
+q(1310)=\frac{1+H-\beta}{2-a}=\frac{62359683640669}{74504434380000}=q'.
+\]
+All of these rational identities are checked by the script
+\texttt{code/constants.py}, which also reproduces $q(1298)=q$. \qed
+
+\section{Proof of Proposition~\ref{prop:limit}}
+
+Since $\Delta_m$ increases with $m$, condition \eqref{eq:A2} forces
+$\tau\ge\sqrt{\Delta_m}$. If $\tau<2$ then $\Delta_m<4$, so $m\le 903$, which
+is worse than $m=1298$; hence we may assume $\tau\ge2$, where
+$\max(1+\tau,2+\tau/2)=1+\tau$ and \eqref{eq:A1} reads $c\ge1+\tau$. The
+function $r_k(c)=4c-2-c^2$ is decreasing for $c>2$, so the second condition
+in \eqref{eq:A3} is easiest to satisfy at $c=1+\tau=1+\sqrt{\Delta_m}$, where
+it becomes
+\[
+1+2\sqrt{\Delta_m}-\Delta_m\ \ge\ 2a=\frac{2\Delta_m}{m}.
+\]
+This holds for $m=1310$ and fails for every $m\ge1311$, as a direct exact
+check shows (the left side decreases and the right side increases with $m$
+in this range; the script \texttt{code/constants.py} performs the search).
+The first condition in \eqref{eq:A3} is not binding, since
+$r_h(c)>1$ for $c\in[3,3.5]$.
+
+For the second claim, $a\to\delta$ and $\beta\to6/2736$ as $m\to\infty$, and
+\[
+\frac{d}{dm}q(m)>0
+\]
+in the relevant range, because the increase of $a$ outweighs that of
+$\beta$: at leading order the sign is that of
+$(1+H-\beta)\,\delta-(2-a)\cdot 6/2736>0$. Hence $q(m)$ increases to
+$q_\infty$. \qed
+
+\begin{remark}
+The binding condition $r_k\ge2a$ comes from an off-line pair of
+multiplicity one: in \cite{Kna26} such a pair contributes $2$ to $N_d$ and a
+term with one positive eigenvalue to $Q=A-P$, which Lemma 4 of \cite{Kna26}
+charges at the cost $c^2$. A sharper treatment of off-line pairs, allowing
+larger $c$ (and hence larger $\tau$ and $m$), would move the bound towards
+$q_\infty$. We tried absorbing a negative residue $r_k-2a<0$ using a known
+lower bound for the proportion of simple zeros on the critical line (which
+bounds $2k+3h\le(1-\kappa^*)N$); with either Conrey's $\kappa^*>2/5$
+\cite{Con89} or the recent $\kappa^*>0.6731$ \cite{TG26}, a scan over $c\in[3.4,4.5]$ shows that
+the penalty exceeds the gain whenever $r_k<2a$, so this route gives nothing.
+\end{remark}
+
+\section{Status and reproducibility}
+
+Theorem~\ref{thm:main} is conditional on exactly the same inputs as
+\cite{Kna26}: the unconditional pair-correlation asymptotic \cite{BGST24},
+the interval enclosure of $C(f)$ and the certified seven-point inequality of
+\cite{TRM26}, several of which are recent and not yet refereed. Nothing new
+is imported. The only new content is the choice of parameters, the exact
+arithmetic verifying \eqref{eq:A1}--\eqref{eq:A3}, and the optimality
+analysis. The file \texttt{code/constants.py} in the accompanying repository
+performs every rational computation in this note with Python's exact
+\texttt{fractions} module.
+
+\subsection*{Use of AI tools}
+The parameter analysis, the verification script and a draft of this text
+were produced with the assistance of an AI system (Anthropic Claude) under
+the author's direction. The author is responsible for the content.
+
+\begin{thebibliography}{99}
+
+\bibitem{AF26} L.~Alp\"oge and R.~Furman, \emph{More than two thirds of the
+zeta zeros are simple and on the critical line}, arXiv:2608.13637, 2026.
+
+\bibitem{BGST24} S.~A.~C.~Baluyot, D.~A.~Goldston, A.~I.~Suriajaya and
+C.~L.~Turnage-Butterbaugh, \emph{An unconditional Montgomery theorem for pair
+correlation of zeros of the Riemann zeta-function}, Acta Arith.\ \textbf{214}
+(2024), 357--376.
+
+\bibitem{Cla26} Claude (Anthropic), \emph{More than two thirds of the zeros of
+the Riemann zeta function lie on the critical line}, preprint, 2026.
+
+\bibitem{Con89} J.~B.~Conrey, \emph{More than two fifths of the zeros of the
+Riemann zeta function are on the critical line}, J.\ Reine Angew.\ Math.\
+\textbf{399} (1989), 1--26.
+
+\bibitem{Kna26} K.~M.~Knausg{\aa}rd, \emph{More than 83.69\% of the zeros of
+the Riemann zeta function are distinct}, arXiv:2609.33043, 2026.
+
+\bibitem{Lam26} Y.~Lamzouri, \emph{A new proof that more than $2/3$ of the
+zeros of the Riemann zeta function are simple and on the critical line},
+arXiv:2609.02882, 2026.
+
+\bibitem{Mon73} H.~L.~Montgomery, \emph{The pair correlation of zeros of the
+zeta function}, Proc.\ Sympos.\ Pure Math.\ \textbf{24}, AMS, 1973, 181--193.
+
+\bibitem{TG26} tawanerguo-cn/zeta-simple-zeros, \emph{A certified
+unconditional 67.3192911473\% lower bound for simple zeros of the Riemann
+zeta function}, research repository, 2026,
+\url{https://github.com/tawanerguo-cn/zeta-simple-zeros}.
+
+\bibitem{TRM26} trmdy/zeta-simple-zeros-673137, commit 1610b97, 2026,
+\url{https://github.com/trmdy/zeta-simple-zeros-673137}.
+
+\bibitem{Wan26} B.~Wang, \emph{Proportions of the non-trivial zeros of the
+Riemann zeta function}, arXiv:2609.24167, 2026.
+
+\end{thebibliography}
+
+\end{document}
