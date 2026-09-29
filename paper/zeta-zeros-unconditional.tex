@@ -1,0 +1,647 @@
+\documentclass[reqno,11pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=red,urlcolor=blue]{hyperref}
+\usepackage{geometry}
+\geometry{a4paper,top=2.5cm,bottom=2.5cm,left=2.8cm,right=2.8cm}
+
+\numberwithin{equation}{section}
+\emergencystretch=3em
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\Imag}{Im}
+
+\title[Zeta zeros: unconditional bounds and limits of recent approaches]{Unconditional bounds for zeros of the Riemann zeta function\\ and limits of recent approaches to the Riemann Hypothesis}
+
+\author{Deep Bhattacharjee}
+\address{Electro-Gravitational Space Propulsion Laboratory (EGSPL),
+Bhubaneswar, Odisha, India.
+\mbox{ORCID: \href{https://orcid.org/0000-0003-0466-750X}{0000-0003-0466-750X}}}
+\email{itsdeep@live.com}
+
+\author{Priyabrata Mandal}
+\address{Department of Mathematics, Bioinformatics and Computer Applications,
+Maulana Azad National Institute of Technology Bhopal, Bhopal 462003, India.
+\mbox{ORCID: \href{https://orcid.org/0000-0001-6472-6239}{0000-0001-6472-6239}}}
+\email{priyabrata@manit.ac.in}
+\thanks{Corresponding author: Priyabrata Mandal.}
+
+\date{29 September 2026. Draft, not submitted.}
+
+\begin{document}
+
+\begin{abstract}
+This paper does not prove the Riemann Hypothesis. It proves three
+unconditional statements (none assumes RH) about the nontrivial zeros of
+$\zeta(s)$ and about recent attempts on them.
+(i) With the analytic and computer-assisted inputs of Knausg{\aa}rd's recent
+argument, a better choice of its free parameters gives
+$\liminf_{T\to\infty}N_d(T)/N(T)\ge 0.8369929140\ldots$ for the proportion of
+distinct zeros, and the block length we use is the largest the argument
+admits.
+(ii) For the trace-moment method built on the Gabor-compressed Weil matrix, we
+compute exactly the contribution of a pair of zeros off the critical line and
+show that any upper bound $\tr\widetilde G^{\,b}\le K\,d\,\ell_1^{\,b}$ with $b$
+even forces every extremal, weakly isolated zero $\rho=\beta+i\gamma$ to satisfy
+$\beta\le\frac12+\frac1{b\lambda}+o(1)$. For $b=4$ this is a zero-free
+statement far beyond what is known. The fourth- and sixth-moment inputs of two
+recent preprints claiming $0.7962$ and density one for simple zeros on the
+line are of exactly this form. The density-one preprint has been retracted by
+its authors for this reason; we show that the $0.7962$ claim depends on the same
+tier and should be regarded as unproven.
+(iii) We locate the invalid step in X.-J.~Li's claimed proof of RH
+(arXiv:0807.0090v10). It is a change of variables that is used in both key
+positivity theorems, and a smooth test function shows that the combined
+statement those theorems assert is false.
+We also recall why a density-one statement, even if it were proved, would not
+imply RH.
+\end{abstract}
+
+\maketitle
+
+\noindent\textbf{MSC 2020:} 11M26 (primary); 11M06, 11Y35.
+
+\section{Introduction}
+
+Let $N(T)$ count the nontrivial zeros $\rho=\beta+i\gamma$ of $\zeta(s)$ with
+$0<\gamma\le T$, with multiplicity, let $N_d(T)$ count the distinct ones, and
+let $N_0^{s}(T)$ count those that are simple and lie on the critical line
+$\beta=\frac12$. The Riemann Hypothesis (RH) asserts that every nontrivial zero
+has $\beta=\frac12$.
+
+\subsection*{What this paper does not prove}
+We do not prove RH, and nothing here implies it. We also stress a point that
+is easy to overlook. Even the statement $\lim_{T\to\infty}N_0^{s}(T)/N(T)=1$
+(``$100\%$ of the zeros are simple and on the line'') would not prove RH. A
+proportion statement is insensitive to any set of $o(N(T))$ zeros, and such a
+set can still be infinite. Only the statement that \emph{every} nontrivial zero
+lies on the line is RH.
+
+\subsection*{What is known}
+Selberg \cite{Sel42} proved that a positive proportion of the zeros lie on the
+line. Along Levinson's method \cite{Lev74} the refereed records are
+Conrey's $2/5$ \cite{Con89} and $5/12$ by Pratt, Robles, Zaharescu and
+Zeindler \cite{PRZZ}. Since August 2026 a series of preprints, all
+unrefereed, has used Montgomery's pair-correlation method \cite{Mon73} in the
+unconditional form of Baluyot, Goldston, Suriajaya and Turnage-Butterbaugh
+\cite{BGST24}. They show that more than two thirds of the zeros are simple and on
+the line \cite{C26,AF26,Lam26,Wan26}, with computer-assisted refinements to about
+$67.3\%$ \cite{TG26,TRM26}. For distinct zeros the best preprint bound not affected by
+Section~\ref{s:claims} is $0.83699288\ldots$ \cite{Kna26}.
+
+\subsection*{Results}
+Section~\ref{s:distinct} improves the distinct-zero constant of \cite{Kna26}
+(Theorem~\ref{thm:distinct}). Section~\ref{s:obstruction} proves an obstruction
+for trace-moment methods (Theorem~\ref{thm:obstruction}). Section~\ref{s:claims}
+applies it to two recent preprints \cite{YY26a,YY26b} whose headline claims,
+$0.7962$ and density one, go far beyond the two-thirds line. Section~\ref{s:li}
+examines Li's claimed proof of RH \cite{Li08}. Section~\ref{s:repro} lists the
+code that reproduces every computation.
+
+\section{Distinct zeros}\label{s:distinct}
+
+We recall Knausg{\aa}rd's argument \cite{Kna26} only as far as needed. It
+combines the unconditional pair-correlation asymptotic \cite{BGST24} with a
+mixed-multiplicity matrix inequality and a certified seven-point local
+inequality taken from \cite{TRM26}. The imported constants are
+\begin{equation}\label{eq:imports}
+H=\frac{3362285207}{5000000000},\qquad \delta=\frac{891}{200000},\qquad
+\text{spread weight }\frac1{2736}.
+\end{equation}
+The argument has free parameters $\tau\ge0$, $c$ and $m$. Put
+\[
+\Delta_m=(m-6)\delta,\quad a=\frac{\Delta_m}{m},\quad
+\beta_m=\frac{6(m-6)}{2736\,m},\quad r_h=6c-7-c^2,\quad r_k=4c-2-c^2 .
+\]
+The proof of \cite[Theorem~1]{Kna26} uses the parameters only through
+\begin{align}
+&c\ge\max(1+\tau,\,2+\tau/2), \label{eq:A1}\\
+&\Delta_m\le\tau^2, \label{eq:A2}\\
+&r_h-a\ge0,\qquad r_k-2a\ge0, \label{eq:A3}
+\end{align}
+and yields
+\begin{equation}\label{eq:qm}
+\liminf_{T\to\infty}\frac{N_d(T)}{N(T)}\ \ge\ q(m):=\frac{1+H-\beta_m}{2-a}.
+\end{equation}
+Condition \eqref{eq:A1} is the hypothesis of the mixed-multiplicity Gram
+inequality \cite[Thm.~2]{Kna26} and of its combination with the threshold
+lemma \cite[Lem.~4]{Kna26}. Condition \eqref{eq:A2} is the hypothesis of the
+block dichotomy. Condition \eqref{eq:A3} makes the high-multiplicity and
+off-line terms of \cite[(1)--(2)]{Kna26} nonnegative. Knausg{\aa}rd takes
+$(\tau,c,m)=(\frac{12}5,\frac{17}5,1298)$ and obtains
+$q(1298)=\frac{16260119298029}{19426831050000}=0.83699288145\ldots$.
+
+\begin{theorem}\label{thm:distinct}
+With the inputs of \cite{Kna26},
+\[
+\liminf_{T\to\infty}\frac{N_d(T)}{N(T)}\ \ge\
+\frac{62359683640669}{74504434380000}=0.83699291404068\ldots .
+\]
+\end{theorem}
+
+\begin{proof}
+Take $\tau=\frac{2411}{1000}$, $c=\frac{3411}{1000}$ and $m=1310$. Then
+$c=1+\tau>2+\tau/2$, which is \eqref{eq:A1}. Next,
+$\Delta_m=\frac{145233}{25000}=5.80932<\tau^2=5.812921$, which is
+\eqref{eq:A2}. With $a=\frac{145233}{32750000}$ and
+$\beta_m=\frac{163}{74670}$ one finds
+$r_h-a=\frac{239290417}{131000000}>0$ and $r_k-2a=\frac{5497}{26200000}>0$,
+which is \eqref{eq:A3}. The steps of \cite{Kna26} from
+\eqref{eq:A1}--\eqref{eq:A3} to \eqref{eq:qm} are stated for general admissible
+parameters, and the Lean statements of \cite[\S4]{Kna26} for Theorem~2, Lemma~4
+and the counting assembly are parametric. The smoothing error vanishes as
+$\eps\to0$ for fixed $(m,\tau)$. Hence \eqref{eq:qm} holds with $m=1310$, and
+exact arithmetic gives $q(1310)=\frac{62359683640669}{74504434380000}$.
+\end{proof}
+
+The gain over \cite{Kna26} is $3.2588\ldots\cdot10^{-8}$. It is a parameter
+refinement, not a new method.
+
+\begin{proposition}\label{prop:limit}
+In the argument of \cite{Kna26}, with the same inputs, no admissible
+$(\tau,c,m)$ has $m>1310$. If the condition $r_k\ge 2a$ were dropped, the
+bound \eqref{eq:qm} would increase to
+$q_\infty=(1+H-6/2736)/(2-\delta)=0.8369964390\ldots$ as $m\to\infty$.
+\end{proposition}
+
+\begin{proof}
+Condition \eqref{eq:A2} forces $\tau\ge\sqrt{\Delta_m}$. If $\tau<2$ then
+$\Delta_m<4$ and $m\le903$. For $\tau\ge2$, \eqref{eq:A1} reads $c\ge1+\tau$.
+Since $r_k$ decreases for $c>2$, the condition $r_k\ge2a$ is easiest to meet
+at $c=1+\sqrt{\Delta_m}$, where it becomes
+$1+2\sqrt{\Delta_m}-\Delta_m\ge 2\Delta_m/m$. In this range the left side
+decreases and the right side increases with $m$. The inequality holds at
+$m=1310$ and fails at $m=1311$ (exact check in \texttt{code/constants.py}).
+The condition $r_h\ge a$ is not binding, since $r_h>1$ on $[3,3.5]$. Finally
+$q(m)$ increases with $m$, since at leading order the sign of $q'(m)$ is that of
+$(1+H-\beta_m)\delta-(2-a)\cdot6/2736>0$, and $q(m)\to q_\infty$.
+\end{proof}
+
+\begin{remark}
+The binding condition $r_k\ge2a$ comes from a pair of zeros off the line,
+which \cite[Lem.~4]{Kna26} charges at cost $c^2$. A negative residue could be
+absorbed using a known lower bound $\kappa^{*}$ for the proportion of simple
+zeros on the line, since $2k+3h\le(1-\kappa^{*})N$. With $\kappa^{*}>2/5$
+\cite{Con89}, or even $\kappa^{*}>0.6731$ \cite{TG26}, a scan over
+$c\in[3.4,4.5]$ shows that the penalty always exceeds the gain.
+\end{remark}
+
+\section{The off-line pair obstruction for trace-moment methods}\label{s:obstruction}
+
+\subsection{Setting}
+We use the notation of \cite[\S2]{YY26a}, which follows \cite{C26}. Let
+$l=\log(T/2\pi)$, $\ell_1=l+2\log2-1$, fix $\lambda\in(0,1]$, and put
+$L=\lambda l$, $X=e^{L}$ and $d=\lfloor LT/2\pi\rfloor$. Let
+$\varrho\in C^3(\mathbb R)$ be nondecreasing with $\varrho=0$ on $(-\infty,0]$
+and $\varrho=1$ on $[1,\infty)$. We fix the ramp width $w=1$ (admissible in
+\cite{YY26a}, where $1\le w\le L/8$) and put
+$\phi(u)=\varrho\bigl((L/2-|u|)/w\bigr)$. For $z\in\mathbb C$ let
+\[
+\widehat\phi(z)=\int\phi(u)e^{izu}\,du,\qquad
+\Phi(z)=\int\phi(u)^2e^{izu}\,du,\qquad
+J(y)=\Phi(-iy)=\int\phi(u)^2e^{yu}\,du,
+\]
+and $a=\frac1L\int\phi^2$. Since $\phi$ is even and real, $J$ is even,
+increasing in $|y|$, and $\widehat\phi(\bar z)=\overline{\widehat\phi(z)}$.
+With $\tau_k=T+2\pi k/L$ for $0\le k<d$, the compressed Weil matrix is
+\[
+G=\sum_{\rho}m_\rho\,u_\rho u_\rho^{\mathsf T},\qquad
+u_\rho=\bigl(\widehat\phi(\gamma_\rho-\tau_k)\bigr)_{0\le k<d},\qquad
+\widetilde G=G/L,
+\]
+where for $\rho=\frac12+\eta+i\gamma$ we write $\gamma_\rho=\gamma-i\eta$. This
+is the zero side of Weil's explicit formula \cite[\S2.1]{YY26a}. Note the
+transpose, not the conjugate transpose. The normalised moments are
+$\mu_b=\tr\widetilde G^{\,b}/(d\ell_1^{\,b})$. A zero off the line pairs with
+$1-\bar\rho$, for which $\gamma_{1-\bar\rho}=\overline{\gamma_\rho}$ and
+$u_{1-\bar\rho}=\overline{u_\rho}$.
+
+\begin{lemma}[Gabor--Poisson identity at complex arguments]\label{lem:poisson}
+For all $\alpha,\beta\in\mathbb C$,
+\[
+\sum_{k\in\mathbb Z}\widehat\phi(\alpha-\tau_k)\,\widehat\phi(\beta-\tau_k)
+=L\,\Phi(\alpha-\beta).
+\]
+\end{lemma}
+
+\begin{proof}
+For real arguments this is \cite[Lem.~2.2]{C26} (recalled in \cite[\S2.1]{YY26a}).
+It follows from Poisson summation, because $\operatorname{supp}\phi$ has length
+$L$ and so only the zero frequency survives. Both sides are entire in
+$(\alpha,\beta)$. Two integrations by parts give
+$|\widehat\phi(x+iy)|\ll_{\varrho} e^{|y|L/2}\min(L,|x|^{-2})$, so the series
+converges locally uniformly, and the identity extends by analytic
+continuation.
+\end{proof}
+
+\begin{lemma}[The block of an off-line pair]\label{lem:block}
+Let $\rho_0=\frac12+\eta_0+i\gamma_0$ with $\eta_0>0$ be a zero of
+multiplicity $m_0$, and let $u=u_{\rho_0}$. Put $n=u^{*}u=\sum_k|u_k|^2$ and
+$s=u^{\mathsf T}u$. The real symmetric matrix
+$B_0=m_0(uu^{\mathsf T}+\bar u\bar u^{\mathsf T})$ has rank at most $2$, and its
+nonzero eigenvalues are
+\[
+m_0\Bigl(\Real s\pm\sqrt{n^2-(\Imag s)^2}\Bigr).
+\]
+If $\gamma_0\in(T+T^{1/2},\,2T-T^{1/2})$, then
+$n=L\,J(2\eta_0)+O(LT^{-1})$ and $s=aL^2+O(LT^{-1})$.
+\end{lemma}
+
+\begin{proof}
+The nonzero eigenvalues of $MM^{\mathsf T}$ with $M=[u\ \bar u]$ are those of
+$M^{\mathsf T}M=\begin{pmatrix}s&n\\ n&\bar s\end{pmatrix}$, whose eigenvalues
+are $\Real s\pm\sqrt{n^2-(\Imag s)^2}$. By Lemma~\ref{lem:poisson}, the full
+sums over $k\in\mathbb Z$ are $L\Phi(z_0-\bar z_0)=L\Phi(-2i\eta_0)=LJ(2\eta_0)$
+and $L\Phi(0)=aL^2$, where $z_0=\gamma_0-i\eta_0$. The terms with $k<0$ or
+$k\ge d$ have $|\gamma_0-\tau_k|\ge T^{1/2}+2\pi j/L$ with $j\ge0$. By the decay
+bound they total $\ll e^{\eta_0L}\sum_{j\ge0}(T^{1/2}+2\pi j/L)^{-4}\ll e^{\eta_0L}L\,T^{-3/2}$.
+Since $e^{\eta_0 L}\le X^{1/2}\le T^{1/2}$, this is $O(LT^{-1})$.
+\end{proof}
+
+Thus a single off-line pair contributes to $\widetilde G$ a positive eigenvalue
+$m_0J(2\eta_0)(1+o(1))$ and a negative one of the same size, with
+\begin{equation}\label{eq:Jlower}
+J(2\eta_0)\ \ge\ \int_0^{L/2-1}e^{2\eta_0u}\,du
+=\frac{e^{2\eta_0(L/2-1)}-1}{2\eta_0}=\frac{X^{\eta_0}e^{-2\eta_0}-1}{2\eta_0}.
+\end{equation}
+The numerical check in \texttt{code/offline\_pair.py} confirms
+Lemma~\ref{lem:poisson} at complex arguments to $2\cdot10^{-9}$ and
+Lemma~\ref{lem:block} to ten digits.
+
+\subsection{The obstruction}
+Let $I'=(T-T^{1/2},\,2T+T^{1/2}]$. For an off-line zero $\rho_0$ with
+$\gamma_0\in I'$ define its \emph{interference}
+\[
+\mathcal I(\rho_0)=\sum_{\rho}{}^{'}\,m_\rho\min\bigl(1,|\gamma_\rho-\gamma_0|^{-4}\bigr),
+\]
+where $\sum'$ runs over the off-line zeros $\rho\notin\{\rho_0,1-\bar\rho_0\}$
+with $\gamma_\rho\in I'$. Call $\rho_0$ \emph{extremal} if
+$\beta_\rho\le\beta_0$ for every zero $\rho$ with $\gamma_\rho\in I'$.
+
+\begin{theorem}\label{thm:obstruction}
+There is a constant $c_\varrho>0$ depending only on $\varrho$ with the
+following property. Let $T$ be large and let $\rho_0=\frac12+\eta_0+i\gamma_0$
+be an extremal zero with $\eta_0>0$,
+$\gamma_0\in(T+T^{1/2},2T-T^{1/2})$ and $\mathcal I(\rho_0)\le c_\varrho$. Then
+\[
+\|\widetilde G\|_{\mathrm{op}}\ \ge\ \tfrac12J(2\eta_0)-3L-1,
+\qquad\text{hence}\qquad
+\tr\widetilde G^{\,b}\ \ge\ \bigl(\tfrac12J(2\eta_0)-3L-1\bigr)^{b}
+\ \text{ for every even } b.
+\]
+\end{theorem}
+
+\begin{proof}
+Split $G=B_0+P+Q+E$, where $B_0$ is the block of $\{\rho_0,1-\bar\rho_0\}$ (the
+two zeros have the same multiplicity), $P$ collects the zeros on the line with
+$\gamma\in I'$, $Q$ collects the other off-line zeros with $\gamma\in I'$
+(grouped in pairs), and $E$ collects the zeros with $\gamma\notin I'$. The matrix
+$P$ is positive semidefinite, because $u_\rho$ is real for $\beta_\rho=\frac12$.
+By the tail estimate of \cite[\S2.2]{YY26a} (that is, \cite[Prop.~4.2]{C26}),
+$\|E\|_{\mathrm{op}}/L\le\theta_0\ll lT^{\lambda/2-1}\le1$.
+
+Let $x$ be a unit eigenvector of $B_0$ for its largest eigenvalue. By
+Lemma~\ref{lem:block}, $x^{\mathsf T}B_0x\ge m_0(n-2|s|)\ge LJ(2\eta_0)-2L^2-1$.
+The vector $x$ is real and lies in the span of $u$ and $\bar u$. Write
+$x=\alpha u+\beta\bar u$. Then
+$1=|x|^2\ge(|\alpha|^2+|\beta|^2)(n-|s|)$, because the Hermitian product of $u$
+and $\bar u$ equals $\bar s$.
+
+If $J(2\eta_0)\le6L+2$ the right side of the claim is at most $0$ and
+there is nothing to prove, so assume $J(2\eta_0)>6L+2$. Since $a\le1$, this
+gives $n-|s|\ge LJ(2\eta_0)-L^2-1\ge\frac45LJ(2\eta_0)$ for large $T$.
+
+Now let $\rho$ be one of the other off-line zeros, with block
+$B_\rho=m_\rho(u_\rho u_\rho^{\mathsf T}+\bar u_\rho\bar u_\rho^{\mathsf T})$. Then
+$|x^{\mathsf T}B_\rho x|\le2m_\rho|u_\rho^{\mathsf T}x|^2$, and
+\[
+|u_\rho^{\mathsf T}x|^2\le\frac{2\bigl(|u_\rho^{\mathsf T}u|+|u_\rho^{\mathsf T}\bar u|\bigr)^2}{n-|s|}.
+\]
+We compare the inner products with the full sums over $k\in\mathbb Z$, which
+Lemma~\ref{lem:poisson} evaluates as $L\Phi(\gamma_\rho-z_0)$ and
+$L\Phi(\gamma_\rho-\bar z_0)$. Every omitted term has
+$|\gamma_0-\tau_k|\ge T^{1/2}$. Using the decay bound for both factors, the
+omitted terms total $t_\rho\ll e^{\eta_0L}L^{3/2}T^{-1}$. The imaginary parts
+of $\gamma_\rho-z_0$ and $\gamma_\rho-\bar z_0$ have absolute value at most
+$2\eta_0<1$, by extremality. Integrating by parts twice gives, for real $x$ and
+$|y|\le1$,
+\[
+|\Phi(x+iy)|\le\frac1{x^2}\Bigl(y^2J(|y|)+(2|y|\,\|(\phi^2)'\|_\infty+\|(\phi^2)''\|_\infty)\int_{\text{ramps}}e^{|y||u|}du\Bigr)
+\le\frac{C_\varrho\,(J(|y|)+1)}{x^2}.
+\]
+Here the ramps are the two unit intervals where $\phi<1$, and we used
+$\int_{\text{ramps}}e^{|y||u|}du\le2e^{|y|L/2}\le2e^{|y|}(|y|J(|y|)+1)$, which
+follows from \eqref{eq:Jlower}. Together with the trivial bound
+$|\Phi(x+iy)|\le J(|y|)$ and the monotonicity of $J$,
+\[
+|u_\rho^{\mathsf T}u|+|u_\rho^{\mathsf T}\bar u|\le
+2C'_\varrho L\bigl(J(2\eta_0)+1\bigr)\min(1,\delta_\rho^{-2})+2t_\rho,\qquad
+\delta_\rho=|\gamma_\rho-\gamma_0|,
+\]
+with $C'_\varrho=\max(1,C_\varrho)$. Using $(p+q)^2\le2p^2+2q^2$,
+$(J+1)^2\le1.1J^2$ and $n-|s|\ge\frac45LJ$, and summing over the pairs in $Q$,
+\[
+|x^{\mathsf T}Qx|\le 44\,C_\varrho'^2\,L\,J(2\eta_0)\,\mathcal I(\rho_0)
++O\Bigl(\sum_{\rho}{}^{'}\frac{m_\rho t_\rho^2}{LJ(2\eta_0)}\Bigr).
+\]
+There are $\ll T\log T$ zeros with $\gamma\in I'$, counted with
+multiplicity. Since $J(2\eta_0)\gg e^{\eta_0L}$ and $e^{\eta_0L}\le T^{1/2}$,
+the error term is $\ll L^2(\log T)e^{\eta_0 L}T^{-1}\le1$.
+
+Choose $c_\varrho=1/(160\,C_\varrho'^2)$, so that
+$|x^{\mathsf T}Qx|\le0.3\,LJ(2\eta_0)+1$. Then
+\[
+x^{\mathsf T}Gx\ \ge\ x^{\mathsf T}B_0x-|x^{\mathsf T}Qx|-\|E\|_{\mathrm{op}}
+\ \ge\ 0.7\,LJ(2\eta_0)-2L^2-L-2\ \ge\ \tfrac12LJ(2\eta_0)-3L^2-L,
+\]
+because $x^{\mathsf T}Px\ge0$. Dividing by $L$ gives the bound for
+$\|\widetilde G\|_{\mathrm{op}}\ge x^{\mathsf T}\widetilde Gx$. Finally
+$\tr\widetilde G^{\,b}=\sum_i\lambda_i^b\ge\|\widetilde G\|_{\mathrm{op}}^b$
+for even $b$.
+\end{proof}
+
+\begin{corollary}\label{cor:zerofree}
+Fix $\lambda\in(0,1]$, an even $b\ge2$ and $K>0$, and suppose that
+$\tr\widetilde G^{\,b}\le K\,d\,\ell_1^{\,b}$ for all large $T$. Then every
+extremal zero $\rho_0$ as in Theorem~\ref{thm:obstruction} with
+$\mathcal I(\rho_0)\le c_\varrho$ satisfies
+\[
+\beta_0\ \le\ \frac12+\frac1{b\lambda}+O\Bigl(\frac{\log\log T}{\log T}\Bigr).
+\]
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:obstruction} and \eqref{eq:Jlower},
+$(X^{\eta_0}e^{-2\eta_0}-1)/(4\eta_0)\le(Kd)^{1/b}\ell_1+3L+1$. Since
+$d\le LT/2\pi$, $\ell_1\ll\log T$ and $X=(T/2\pi)^{\lambda}$, taking logarithms
+gives $\lambda\eta_0\log T\le\frac1b\log T+O(\log\log T)$.
+\end{proof}
+
+\begin{remark}[What the corollary means]\label{rem:meaning}
+For $b=2$ the conclusion is $\beta_0\le\frac12+\frac1{2\lambda}+o(1)$, which is
+empty because $\beta_0<1$ and $\lambda\le1$. This is consistent with the second
+moment $\mu_2\to\frac43$ being a theorem \cite{C26,BGST24}: Montgomery's
+bandwidth $\lambda\le1$ is exactly what keeps it clear of the obstruction.
+For $b=4$ and $\lambda$ close to $1$ the conclusion is
+$\beta_0\le\frac34+\eps$. Nothing of this kind is known: the best
+unconditional zero-free region is of Vinogradov--Korobov type,
+$\beta<1-c(\log\gamma)^{-2/3}(\log\log\gamma)^{-1/3}$ \cite{For02}. For $b=6$
+it would be $\beta_0\le\frac23+\eps$. Odd moments are not covered, because the
+two eigenvalues of Lemma~\ref{lem:block} cancel to leading order in
+$\tr\widetilde G^{\,b}$ for odd $b$. This agrees with the retraction notice
+of \cite{YY26b}, which speaks of higher \emph{even} moments.
+\end{remark}
+
+\begin{remark}[Limits of Theorem~\ref{thm:obstruction}]
+The interference hypothesis excludes clusters of off-line zeros near
+$\gamma_0$. Such a cluster could in principle produce cancellation in
+$x^{\mathsf T}Qx$, and we do not rule this out. The authors of \cite{YY26b}
+state that a reviewer's argument (``Proposition R''), which they verified,
+shows in general that finite unconditional bounds on higher even moments would
+force zero-free regions of power-law strength. That argument is not public,
+and we do not rely on it. Theorem~\ref{thm:obstruction} proves the
+mechanism rigorously in the isolated case, which suffices for our conclusions
+below.
+\end{remark}
+
+\section{Consequences for two recent claims}\label{s:claims}
+
+\subsection{The density-one preprint}
+The preprint \cite{YY26b} (version~0.92, August 2026) claimed unconditionally that
+$\lim N_0^{s}(T)/N(T)=1$. It evaluated the trace moments of $\widetilde G$
+through order fourteen and consumed them in a Christoffel-function count. On
+3~September 2026 its authors retracted the central claims (repository commit
+\texttt{ac85152}, file \texttt{RETRACTION.md}), stating that ``finite
+unconditional bounds on higher even moments would already force zero-free
+regions of power-law strength'' and that ``the gap was located; the claims do
+not survive''. Corollary~\ref{cor:zerofree} gives an independent, rigorous
+account of the mechanism in the isolated case.
+
+\subsection{\texorpdfstring{The $0.7962$ preprint}{The 0.7962 preprint}}
+The preprint \cite{YY26a} (repository commit \texttt{d85bddf}, 17 August 2026;
+Zenodo DOI 10.5281/zenodo.21975236) claims $\liminf N_0^{s}/N\ge0.7962$ and
+$\liminf N_d/N\ge0.8981$. It grades these as ``certified candidates''. It is
+not marked as retracted. Its rungs and their inputs are as follows (line
+numbers refer to \texttt{paper.tex} in that repository).
+\begin{itemize}
+\item The rung $0.6916$ uses the upper bound $\limsup R(1)\le0.0066$, that is
+$\mu_4\le\frac{13}4+0.0399+o(1)$ (the one-sided fourth-moment theorem,
+lines~882--897).
+\item The rung $13/18$ uses ``$m_4\to13/4$ two-sidedly'' (Lemma~D in truncated
+form, lines~1365--1376, and its corollary, line~1427).
+\item The headline $0.7962$ additionally uses $m_6\le M_6=\frac{12809}{1260}$
+(section ``Consumption and the proof of the main theorem'', lines~1823--1835).
+\end{itemize}
+The paper notes that the count is monotone in each even moment (line~544), so
+every rung above the pair-correlation ceiling $0.68185$ of \cite{C26}, which
+the paper recalls at line~146, consumes an \emph{upper} bound on $\mu_4$ and,
+for the headline, on $\mu_6$. By Corollary~\ref{cor:zerofree} with $b=4$
+(respectively $b=6$), each of these inputs, if proved unconditionally, would
+imply that $\zeta$ has no extremal, weakly isolated zeros with $\beta>\frac34+\eps$
+(respectively $\beta>\frac23+\eps$) for large height. That is far beyond current
+knowledge. The paper's own objects ($\widetilde G$, the moment $\mu_4\to13/4$)
+are literally those of the retracted tier of \cite{YY26b}; compare line~533 with
+the retraction notice. The paper states that ``proportion statements are
+insensitive to $o(N)$ off-line zeros'' (line~191). Lemma~\ref{lem:block} shows
+that the trace moments of order $b\ge4$ are not: a single off-line pair changes
+$\tr\widetilde G^{\,4}$ by $\asymp X^{4\eta_0}/\eta_0^4$.
+
+We conclude that the claims $0.6916$, $13/18$, $0.7962$ and the corresponding
+distinct-zero claims of \cite{YY26a} should be regarded as \emph{unproven}.
+We have not located the specific line where the proof of Lemma~D fails. What
+Corollary~\ref{cor:zerofree} shows is that, unless that proof contains a gap,
+it proves a zero-free statement of a strength no known method reaches.
+
+\section{Li's claimed proof of the Riemann Hypothesis}\label{s:li}
+
+X.-J.~Li's arXiv preprint \cite{Li08} (first version July 2008, version~10
+October 2025, listed under math.GM) claims to prove RH. It works in Connes'
+semilocal adelic framework \cite{Con99}. The chain is as follows.
+Theorem~1.1 (cited) gives $\tr(T_h)=\Delta(h)-\hat h(0)-\hat h(1)$ with
+$\Delta(h)=\sum_\rho\hat h(\rho)$ and $\hat h(s)=\hat g(s)\hat g(1-s)$.
+Theorem~1.2 relates special test functions $g_{n,\eps}$ to the Li coefficients
+$\lambda_n$. Theorem~1.3 asserts that the trace of $T_h$ on
+$E_S(Q_\Lambda^{\perp})$ vanishes, and Theorem~1.4 that the trace on
+$E_S(Q_\Lambda)$ is nonnegative. Li's criterion \cite{Li97} then gives RH.
+
+\subsection{The invalid step}
+Section~4 of \cite{Li08} ends with an absolutely convergent sum over the
+infinite unit group $O_S^{*}$, equation~(4.13). The paper substitutes
+$x\mapsto\xi^{-1}x$ and then $u\mapsto u\xi$, and asserts that every term of
+(4.14) is the same number. Since the sum converges, that number must be $0$,
+which is (4.15). The substitution in $\int_{C_S}\cdots d^{\times}x$ is valid only
+if the integrand is a function on $C_S=J_S/O_S^{*}$, that is, invariant under
+multiplication of $x$ by units. The integrand contains $\Psi_S(x\xi v)$, which
+is not invariant. For $S=\{\infty,2\}$ the element $\frac12$ lies in $O_S^{*}$,
+and replacing $v$ by $v/2$ changes the normalised local factor
+$\int_{\mathbb Z_2^{*}}\psi_2(-xv)\,d^{\times}x$ from $+1$ to $-1$
+(\texttt{code/li\_audit/padic\_check.py}, which also checks Lemma~2.2 of
+\cite{Li08} for $p=2,3,5,7$). So the terms of (4.14) are not equal. Section~5
+makes the same move at (5.8)--(5.10), so Theorems~1.3 and~1.4 are both
+unproven.
+
+\subsection{The argument proves too much}
+The proofs in Sections~4 and~5 of \cite{Li08} use only that $g$ is real,
+smooth and supported in $[1-\eps,\mu_\eps]$. If Theorems~1.1, 1.3 and~1.4 held
+together for all such $g$, they would give
+\begin{equation}\label{eq:li-star}
+\sum_\rho\hat g(\rho)\,\hat g(1-\rho)\ \ge\ \hat h(0)+\hat h(1)=2\,\hat g(0)\,\hat g(1).
+\end{equation}
+
+\begin{proposition}[numerical]\label{prop:li}
+Let $g(x)=G(\log x)$, where $G(u)=\exp\bigl(-1/(1-y^2)\bigr)$ with
+$y=2u/3-1$ on $[0,3]$. Then $2\hat g(0)\hat g(1)=4.7287408\ldots$, while
+$\sum_\rho\hat g(\rho)\hat g(1-\rho)=0.000182557\ldots$. So
+\eqref{eq:li-star} fails by a factor of about $2.6\cdot10^4$.
+\end{proposition}
+
+The zero sum is computed in two independent ways. The first uses the first
+$50$ zeros, with a tail bound $\le1.3\cdot10^{-7}$ that holds whether or not
+the remaining zeros are on the line. The second uses Weil's explicit formula
+in the form of \cite{Bom00}, which involves primes and the archimedean term
+only. The two agree to $1.7\cdot10^{-12}$
+(\texttt{code/li\_audit/weil\_counterexample.py}). Since the proofs of
+Theorems~1.3 and~1.4 do not distinguish this $g$ from the functions $g_{n,\eps}$,
+they are not valid for $g_{n,\eps}$ either. When $\hat h(0)=\hat h(1)=0$, the
+inequality $\tr(T_h)\ge0$ is Weil's positivity criterion, which is equivalent
+to RH. The paper therefore does not establish RH.
+
+\begin{remark}
+The Li coefficients $\lambda_1,\dots,\lambda_{30}$, computed from derivatives
+of $\log\xi$ at $s=1$ without using zeros, are all positive
+(\texttt{code/li\_audit/li\_coefficients.py}). This is consistent with RH and
+is known far beyond $n=30$. No finite range of $n$ implies RH.
+\end{remark}
+
+\subsection{A related claim}
+The 2018 manuscript \cite{Esw18} reduces RH to Littlewood's criterion
+$L(N)=\sum_{n\le N}\lambda(n)\ll N^{1/2+\eps}$ for the Liouville function. It
+then argues that $\lambda(n)$ behaves like a sequence of fair coin tosses. The
+properties it establishes (equal densities of $\pm1$, non-periodicity,
+finite-range statistics) are compatible with partial sums as large as
+$N^{0.99}$, and equal density is equivalent to the prime number theorem, which
+gives only $L(N)=o(N)$. The required bound is equivalent to RH and is in effect
+assumed, so this is not a proof.
+
+\section{Reproducibility}\label{s:repro}
+
+All code is in the accompanying repository and runs with Python~3, numpy,
+mpmath and sympy.
+\begin{itemize}
+\item \texttt{code/constants.py}: exact rational verification of
+Theorem~\ref{thm:distinct} and Proposition~\ref{prop:limit}.
+\item \texttt{code/offline\_pair.py}: Lemmas~\ref{lem:poisson}
+and~\ref{lem:block} at complex arguments, and the thresholds of
+Corollary~\ref{cor:zerofree} at finite height (output in
+\texttt{code/offline\_pair.txt}).
+\item \texttt{code/li\_audit/}: \texttt{weil\_counterexample.py}
+(Proposition~\ref{prop:li}), \texttt{padic\_check.py},
+\texttt{li\_coefficients.py} and the zero cache.
+\end{itemize}
+
+\subsection*{Status of the inputs}
+Theorem~\ref{thm:distinct} depends on the unrefereed certificate of
+\cite{TRM26} and on \cite{BGST24}, exactly as \cite{Kna26} does.
+Theorem~\ref{thm:obstruction} depends only on the explicit construction of
+\cite{C26,YY26a} and on classical estimates. Proposition~\ref{prop:li} is a
+numerical computation with an explicit tail bound.
+
+\subsection*{Use of AI tools}
+The analyses, the code and a draft of this text were produced with the
+assistance of an AI system (Anthropic Claude) under the authors' direction.
+The authors are responsible for the content.
+
+\begin{thebibliography}{99}
+
+\bibitem{AF26} L.~Alp\"oge and R.~Furman, \emph{More than two thirds of the
+zeta zeros are simple and on the critical line}, arXiv:2608.13637, 2026.
+
+\bibitem{BGST24} S.~A.~C.~Baluyot, D.~A.~Goldston, A.~I.~Suriajaya and
+C.~L.~Turnage-Butterbaugh, \emph{An unconditional Montgomery theorem for pair
+correlation of zeros of the Riemann zeta-function}, Acta Arith.\ \textbf{214}
+(2024), 357--376.
+
+\bibitem{Bom00} E.~Bombieri, \emph{Remarks on Weil's quadratic functional in
+the theory of prime numbers, I}, Rend.\ Mat.\ Acc.\ Lincei (9) \textbf{11}
+(2000), 183--233.
+
+\bibitem{C26} Claude (Anthropic), \emph{More than two thirds of the zeros of
+the Riemann zeta function lie on the critical line}, preprint, 2026.
+
+\bibitem{Con89} J.~B.~Conrey, \emph{More than two fifths of the zeros of the
+Riemann zeta function are on the critical line}, J.\ Reine Angew.\ Math.\
+\textbf{399} (1989), 1--26.
+
+\bibitem{Con99} A.~Connes, \emph{Trace formula in noncommutative geometry and
+the zeros of the Riemann zeta function}, Selecta Math.\ (N.S.) \textbf{5}
+(1999), 29--106.
+
+\bibitem{Esw18} K.~Eswaran, \emph{The final and exhaustive proof of the
+Riemann Hypothesis from first principles}, manuscript (ResearchGate), May 2018.
+
+\bibitem{For02} K.~Ford, \emph{Vinogradov's integral and bounds for the
+Riemann zeta function}, Proc.\ London Math.\ Soc.\ (3) \textbf{85} (2002),
+565--633.
+
+\bibitem{Kna26} K.~M.~Knausg{\aa}rd, \emph{More than 83.69\% of the zeros of
+the Riemann zeta function are distinct}, arXiv:2609.33043, 2026.
+
+\bibitem{Lam26} Y.~Lamzouri, \emph{A new proof that more than $2/3$ of the
+zeros of the Riemann zeta function are simple and on the critical line},
+arXiv:2609.02882, 2026.
+
+\bibitem{Lev74} N.~Levinson, \emph{More than one third of zeros of Riemann's
+zeta-function are on $\sigma=1/2$}, Adv.\ Math.\ \textbf{13} (1974), 383--436.
+
+\bibitem{Li97} X.-J.~Li, \emph{The positivity of a sequence of numbers and the
+Riemann hypothesis}, J.\ Number Theory \textbf{65} (1997), 325--333.
+
+\bibitem{Li08} X.-J.~Li, \emph{A proof of the Riemann hypothesis},
+arXiv:0807.0090v10, 2025.
+
+\bibitem{Mon73} H.~L.~Montgomery, \emph{The pair correlation of zeros of the
+zeta function}, Proc.\ Sympos.\ Pure Math.\ \textbf{24}, AMS, 1973, 181--193.
+
+\bibitem{PRZZ} K.~Pratt, N.~Robles, A.~Zaharescu and D.~Zeindler, \emph{More
+than five-twelfths of the zeros of $\zeta$ are on the critical line}, Res.\
+Math.\ Sci.\ \textbf{7} (2020), Paper No.~2.
+
+\bibitem{Sel42} A.~Selberg, \emph{On the zeros of Riemann's zeta-function},
+Skr.\ Norske Vid.-Akad.\ Oslo I (1942), no.~10.
+
+\bibitem{TG26} tawanerguo-cn/zeta-simple-zeros, \emph{A certified
+unconditional 67.3192911473\% lower bound for simple zeros of the Riemann
+zeta function}, research repository, 2026,
+\url{https://github.com/tawanerguo-cn/zeta-simple-zeros}.
+
+\bibitem{TRM26} trmdy/zeta-simple-zeros-673137, commit 1610b97, 2026,
+\url{https://github.com/trmdy/zeta-simple-zeros-673137}.
+
+\bibitem{Wan26} B.~Wang, \emph{Proportions of the non-trivial zeros of the
+Riemann zeta function}, arXiv:2609.24167, 2026.
+
+\bibitem{YY26a} H.~Yang and S.~Yang, \emph{More than 0.7962 of the zeros of
+the Riemann zeta function are simple and on the critical line}, preprint,
+2026, Zenodo DOI 10.5281/zenodo.21975236;
+\url{https://github.com/JoshuaHKU/zeta-0.7947-reproduction}, commit d85bddf.
+
+\bibitem{YY26b} H.~Yang and S.~Yang, \emph{Almost all zeros of the Riemann
+zeta function are simple and on the critical line}, preprint v0.92, 2026,
+Zenodo DOI 10.5281/zenodo.22065921; retracted 3 September 2026,
+\url{https://github.com/JoshuaHKU/zeta-density-one-reproduction}.
+
+\end{thebibliography}
+
+\end{document}
