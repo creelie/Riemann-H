@@ -29,8 +29,9 @@ density-zero set of zeros could still lie off the critical line.
 - `code/constants.py`: exact rational check of the distinct-zeros constant and optimality.
 - `code/offline_pair.py`: complex Gabor-Poisson identity, the off-line pair block, and the
   thresholds of the obstruction (output in `code/offline_pair.txt`, about 5 minutes).
-- `code/li_audit/`: the Li audit (`AUDIT.md`), `weil_counterexample.py`, `padic_check.py`,
-  `li_coefficients.py`, `liouville_independent.py`, and the zero cache.
+- `audit/`: the Li audit (`audit/README.md`) and its code in `audit/code/`:
+  `weil_counterexample.py`, `padic_check.py`, `li_coefficients.py`,
+  `liouville_independent.py`, and the zero cache.
 
 Requires Python 3 with numpy, mpmath and sympy.
 

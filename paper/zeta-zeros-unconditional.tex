@@ -487,7 +487,7 @@ multiplication of $x$ by units. The integrand contains $\Psi_S(x\xi v)$, which
 is not invariant. For $S=\{\infty,2\}$ the element $\frac12$ lies in $O_S^{*}$,
 and replacing $v$ by $v/2$ changes the normalised local factor
 $\int_{\mathbb Z_2^{*}}\psi_2(-xv)\,d^{\times}x$ from $+1$ to $-1$
-(\texttt{code/li\_audit/padic\_check.py}, which also checks Lemma~2.2 of
+(\texttt{audit/code/padic\_check.py}, which also checks Lemma~2.2 of
 \cite{Li08} for $p=2,3,5,7$). So the terms of (4.14) are not equal. Section~5
 makes the same move at (5.8)--(5.10), so Theorems~1.3 and~1.4 are both
 unproven.
@@ -512,7 +512,7 @@ $50$ zeros, with a tail bound $\le1.3\cdot10^{-7}$ that holds whether or not
 the remaining zeros are on the line. The second uses Weil's explicit formula
 in the form of \cite{Bom00}, which involves primes and the archimedean term
 only. The two agree to $1.7\cdot10^{-12}$
-(\texttt{code/li\_audit/weil\_counterexample.py}). Since the proofs of
+(\texttt{audit/code/weil\_counterexample.py}). Since the proofs of
 Theorems~1.3 and~1.4 do not distinguish this $g$ from the functions $g_{n,\eps}$,
 they are not valid for $g_{n,\eps}$ either. When $\hat h(0)=\hat h(1)=0$, the
 inequality $\tr(T_h)\ge0$ is Weil's positivity criterion, which is equivalent
@@ -521,7 +521,7 @@ to RH. The paper therefore does not establish RH.
 \begin{remark}
 The Li coefficients $\lambda_1,\dots,\lambda_{30}$, computed from derivatives
 of $\log\xi$ at $s=1$ without using zeros, are all positive
-(\texttt{code/li\_audit/li\_coefficients.py}). This is consistent with RH and
+(\texttt{audit/code/li\_coefficients.py}). This is consistent with RH and
 is known far beyond $n=30$. No finite range of $n$ implies RH.
 \end{remark}
 
@@ -546,7 +546,7 @@ Theorem~\ref{thm:distinct} and Proposition~\ref{prop:limit}.
 and~\ref{lem:block} at complex arguments, and the thresholds of
 Corollary~\ref{cor:zerofree} at finite height (output in
 \texttt{code/offline\_pair.txt}).
-\item \texttt{code/li\_audit/}: \texttt{weil\_counterexample.py}
+\item \texttt{audit/code/}: \texttt{weil\_counterexample.py}
 (Proposition~\ref{prop:li}), \texttt{padic\_check.py},
 \texttt{li\_coefficients.py} and the zero cache.
 \end{itemize}
