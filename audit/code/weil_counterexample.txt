@@ -1,0 +1,9 @@
+test function: g(x) = G(log x), C^oo bump on [1, e^3.0] = [1, 20.0855]
+g^(0) = 0.665990724252   g^(1) = 3.550155164339
+h^(0) + h^(1)                   = 4.728740818213
+Delta(h), first 50 zeros (T = 143.11) = 0.000182557559
+  bound on the rest (|Im rho| > T)  <= 1.242e-07
+Delta(h), explicit formula         = 0.000182557561
+  |zeros - explicit|               = 1.739e-12
+claimed trace(T_h) = Delta(h) - h^(0) - h^(1) = -4.728558260654
+Li's Theorems 1.1+1.3+1.4 would force this to be >= 0: VIOLATED
