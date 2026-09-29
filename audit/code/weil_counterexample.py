@@ -29,7 +29,7 @@ from zeros_cache import zeros
 # ---------------------------------------------------------------- test function
 # g(x) = G(log x), G(u) = exp(-1/(1 - y^2)), y = 2u/L - 1, supported on [0, L].
 L = float(sys.argv[1]) if len(sys.argv) > 1 else 3.0
-N_ZEROS = int(sys.argv[2]) if len(sys.argv) > 2 else 2000
+N_ZEROS = int(sys.argv[2]) if len(sys.argv) > 2 else 50
 
 _u = sp.symbols("u")
 _y = 2 * _u / sp.Float(L) - 1

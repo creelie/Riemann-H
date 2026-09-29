@@ -131,7 +131,7 @@ All scripts are in `code/` and need Python 3 with numpy, mpmath and sympy.
 | Script | What it does | Runtime |
 |---|---|---|
 | `weil_counterexample.py [L] [N]` | The counterexample to (*). Computes Δ(h) from zeros (with a tail bound valid for zeros off the line) and from Weil's explicit formula | seconds, once zeros are cached |
-| `zeros_cache.py N` | Caches the first N zeros via `mpmath.zetazero` | minutes for 2000 |
+| `zeros_cache.py N` | Caches the first N zeros via `mpmath.zetazero` | ~2 s for 50 |
 | `padic_check.py` | Exact checks of Lemma 2.2, and the non-invariance behind (4.13)→(4.14) | < 1 s |
 | `li_coefficients.py N` | λ_1..λ_N from derivatives of log ξ at s = 1, with no zeros used. All positive, consistent with RH | ~1 min for N = 30 |
 | `liouville_independent.py` | Independent L(N) for Table 1 of the Liouville preprint | ~5 s |
